@@ -20,8 +20,8 @@ import NotFoundPage from "./pages/NotFoundPage";
 function App() {
   return (
     <>
-    {/* Speed Insights Component */}
-    <SpeedInsights />
+      {/* Speed Insights Component */}
+      <SpeedInsights />
     <Routes>
       <Route path="/" element={<Layout><HomePage /></Layout>} />
       <Route path="/login" element={<LoginPage />} />

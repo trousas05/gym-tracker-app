@@ -1,6 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import "./assets/styles/App.css";
+
+// Components
+import Layout from "./components/Layout";
+import PrivateRoute from "./components/PrivateRoute";
 
 // Pages
 import HomePage from "./pages/HomePage";
@@ -14,18 +18,48 @@ import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="/workout/log" element={<WorkoutLogPage />} />
-        <Route path="/exercises" element={<ExerciseLibraryPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path="/" element={<Layout><HomePage /></Layout>} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
+      
+      {/* Protected Routes */}
+      <Route 
+        path="/dashboard" 
+        element={
+          <PrivateRoute>
+            <Layout><DashboardPage /></Layout>
+          </PrivateRoute>
+        } 
+      />
+      <Route 
+        path="/workout/log" 
+        element={
+          <PrivateRoute>
+            <Layout><WorkoutLogPage /></Layout>
+          </PrivateRoute>
+        } 
+      />
+      <Route 
+        path="/exercises" 
+        element={
+          <PrivateRoute>
+            <Layout><ExerciseLibraryPage /></Layout>
+          </PrivateRoute>
+        } 
+      />
+      <Route 
+        path="/profile" 
+        element={
+          <PrivateRoute>
+            <Layout><ProfilePage /></Layout>
+          </PrivateRoute>
+        } 
+      />
+      
+      {/* 404 Page */}
+      <Route path="*" element={<Layout><NotFoundPage /></Layout>} />
+    </Routes>
   );
 }
 
